@@ -1,0 +1,200 @@
+:root {
+  --bg: #0f1115;
+  --panel: #161a22;
+  --panel-border: #252b37;
+  --grid: #1c212b;
+  --text: #e6e6e6;
+  --muted: #8a93a6;
+  --snake: #39d98a;
+  --snake-head: #7dffbc;
+  --food: #ff5c7a;
+  --danger: #ff4d4f;
+  --accent: #ffc857;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.app {
+  max-width: 440px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  color: var(--snake);
+}
+
+.hud {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.stat {
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  padding: 8px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+.label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.value {
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+#walls { font-size: 0.8rem; text-align: center; }
+.walls-safe { color: var(--snake); }
+.walls-danger { color: var(--danger); }
+
+.board {
+  position: relative;
+  width: 100%;
+  max-width: 406px; /* 400px de canvas + 2 × 3px de borda (border-box) */
+  aspect-ratio: 1 / 1;
+  border: 3px solid var(--panel-border);
+  border-radius: 6px;
+  overflow: hidden;
+  touch-action: none;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.board.danger {
+  border-color: var(--danger);
+  box-shadow: 0 0 18px rgba(255, 77, 79, 0.35);
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--panel);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  text-align: center;
+  background: rgba(10, 12, 16, 0.82);
+  cursor: pointer;
+}
+
+.overlay.hidden { display: none; }
+.overlay h2 { margin: 0; font-size: 1.5rem; }
+.overlay p { margin: 0; }
+
+.overlay .summary {
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 4px 16px;
+  margin: 4px 0;
+  color: var(--muted);
+}
+
+.overlay .summary strong { color: var(--text); text-align: left; }
+
+.record {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.hint { color: var(--muted); font-size: 0.9rem; }
+
+.toast {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translate(-50%, -8px);
+  max-width: calc(100% - 24px);
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  font-weight: 600;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+.toast.danger { border-color: var(--danger); color: var(--danger); }
+
+.pause-btn {
+  min-width: 140px;
+  padding: 8px 20px;
+  border: 1px solid var(--panel-border);
+  border-radius: 8px;
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pause-btn:hover:not(:disabled) { border-color: var(--snake); }
+.pause-btn:focus-visible { outline: 2px solid var(--snake); outline-offset: 2px; }
+.pause-btn:disabled { opacity: 0.45; cursor: default; }
+
+.controls {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8;
+}
+
+kbd {
+  display: inline-block;
+  min-width: 1.6em;
+  padding: 0 4px;
+  margin: 0 1px;
+  border: 1px solid var(--panel-border);
+  border-radius: 4px;
+  background: var(--panel);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+@media (max-width: 380px) {
+  .hud { grid-template-columns: repeat(2, 1fr); }
+}

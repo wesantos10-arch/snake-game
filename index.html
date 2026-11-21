@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Jogo da Cobra</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app">
+    <h1 class="title">Jogo da Cobra</h1>
+
+    <section class="hud" aria-live="polite">
+      <div class="stat"><span class="label">Pontos</span><span id="score" class="value">0</span></div>
+      <div class="stat"><span class="label">Recorde</span><span id="high" class="value">0</span></div>
+      <div class="stat"><span class="label">Nível</span><span id="level" class="value">1</span></div>
+      <div class="stat"><span class="label">Paredes</span><span id="walls" class="value walls-safe">atravessáveis</span></div>
+    </section>
+
+    <div id="board" class="board">
+      <canvas id="game" width="400" height="400" aria-label="Tabuleiro do jogo"></canvas>
+
+      <div id="toast" class="toast" role="status"></div>
+
+      <div id="overlay" class="overlay">
+        <h2 id="overlay-title">Jogo da Cobra</h2>
+        <div id="overlay-body"></div>
+        <p id="overlay-hint" class="hint"></p>
+      </div>
+    </div>
+
+    <button id="pause-btn" class="pause-btn" type="button" disabled>Pausar</button>
+
+    <p class="controls">
+      <kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> ou <kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> movem ·
+      <kbd>P</kbd>/<kbd>Esc</kbd> pausa · no celular, deslize o dedo e use o botão Pausar
+    </p>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
